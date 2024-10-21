@@ -1,11 +1,13 @@
 package lookids.feed.feed.vo.out;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lookids.feed.feed.dto.out.MediaUrlResponse;
 
 @Getter
 @Builder
@@ -13,10 +15,14 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FeedResponseVo {
 
-    private String userUuid;
+    private Long authorId;
+    private String authorImage;
+    private Long feedId;
     private String petCode;
-    private String content;
-    private String contentMedia;
+    private LocalDateTime createdAt;
     private String tag;
-    private LocalDateTime createAt;
+    private String content;
+    private List<MediaUrlResponse> mediaUrls;
+
+
 }

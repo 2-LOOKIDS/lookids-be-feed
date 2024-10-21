@@ -22,30 +22,30 @@ public class FeedController {
 
     private final FeedService feedService;
 
-    @Operation(summary = "feed 작성 API", description = "feed 작성 API 입니다.", tags = {"Feed"})
+    @Operation(summary = "feed 등록 API", description = "feed 등록 API 입니다.", tags = {"Feed"})
     @PostMapping
     public BaseResponse<Void> createFeed(@RequestBody FeedRequestVo feedRequestVo) {
         feedService.createFeed(FeedRequestDto.toDto(feedRequestVo));
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);
     }
 
+     @Operation(summary = "userFeed 조회 API", description = "userFeed 조회 API 입니다.", tags = {"Feed"})
+     @GetMapping("/userFeed")
+     public BaseResponse<List<FeedResponseVo>> readUserFeedList(@RequestParam("user_uuid") String userUuid) {
+         List<FeedResponseVo> feedList = feedService.readUserFeedList(userUuid)
+                 .stream().map(FeedResponseDto::toVo)
+                 .toList();
+         return new BaseResponse<>(feedList);
+     }
+
     @Operation(summary = "feed 조회 API", description = "feed 조회 API 입니다.", tags = {"Feed"})
     @GetMapping
-    public BaseResponse<List<FeedResponseVo>> readFeedList() {
-        List<FeedResponseVo> feedList = feedService.readFeedList()
-                .stream().map(FeedResponseDto::toVo)
-                .toList();
-        return new BaseResponse<>(feedList);
-    }
-
-    @Operation(summary = "feed detail 조회 API", description = "feed detail 조회 API 입니다.", tags = {"Feed"})
-    @GetMapping("/detail")
-    public BaseResponse<FeedResponseVo> readFeed(@RequestParam String feedCode) {
+    public BaseResponse<FeedResponseVo> readFeed(@RequestParam("feed_code") String feedCode) {
         return new BaseResponse<>(feedService.readFeed(feedCode).toVo());
     }
 
     @Operation(summary = "feed 삭제 API", description = "feed 삭제 API 입니다.", tags = {"Feed"})
-    @DeleteMapping()
+    @DeleteMapping
     public BaseResponse<Void> deleteFeed(@RequestParam String feedCode) {
         feedService.deleteFeed(feedCode);
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);

@@ -8,6 +8,8 @@ import lookids.feed.feed.domain.Feed;
 import lookids.feed.feed.vo.out.FeedResponseVo;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Builder
@@ -15,32 +17,40 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class FeedResponseDto {
 
-    private String userUuid;
+    private Long authorId;
+    private String authorImage;
+    private Long feedId;
     private String petCode;
-    private String content;
-    private String contentMedia;
+    private LocalDateTime createdAt;
     private String tag;
-    private LocalDateTime createAt;
+    private String content;
+    private List<MediaUrlResponse> mediaUrls;
 
     public static FeedResponseDto toDto(Feed feed) {
         return FeedResponseDto.builder()
-                .userUuid(feed.getUserUuid())
+                .authorId(feed.getAuthorId())
+                .authorImage(feed.getAuthorImage())
+                .feedId(feed.getId())
                 .petCode(feed.getPetCode())
-                .content(feed.getContent())
-                .contentMedia(feed.getContentMedia())
+                .createdAt(feed.getCreatedAt())
                 .tag(feed.getTag())
-                .createAt(feed.getCreatedAt())
+                .content(feed.getContent())
+                .mediaUrls(feed.getMediaUrls().stream()
+                .map(MediaUrlResponse::new)
+                .collect(Collectors.toList()))
                 .build();
     }
 
     public FeedResponseVo toVo() {
         return FeedResponseVo.builder()
-                .userUuid(userUuid)
+                .authorId(authorId)
+                .authorImage(authorImage)
+                .feedId(feedId)
                 .petCode(petCode)
-                .content(content)
-                .contentMedia(contentMedia)
+                .createdAt(createdAt)
                 .tag(tag)
-                .createAt(createAt)
+                .content(content)
+                .mediaUrls(mediaUrls)
                 .build();
     }
 }
