@@ -8,10 +8,7 @@ import java.util.List;
 public interface FeedService {
 
     void createFeed(FeedRequestDto feedRequestDto);
-
-    List<FeedResponseDto> readFeedList();
-
+    List<FeedResponseDto> readUserFeedList(String userUuid);
     FeedResponseDto readFeed(String feedCode);
-
     void deleteFeed(String feedCode);
 }

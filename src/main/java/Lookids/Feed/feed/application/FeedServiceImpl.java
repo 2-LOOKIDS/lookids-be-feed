@@ -23,12 +23,12 @@ public class FeedServiceImpl implements FeedService {
         feedRepository.save(feedRequestDto.toEntity());
     }
 
-    @Override
-    public List<FeedResponseDto> readFeedList() {
-        List<Feed> feedList = feedRepository.findAll();
-        return feedList.stream()
-                .map(FeedResponseDto::toDto).toList();
-    }
+     @Override
+     public List<FeedResponseDto> readUserFeedList(String userUuid) {
+         List<Feed> feedList = feedRepository.findByUserUuid(userUuid);
+         return feedList.stream()
+                 .map(FeedResponseDto::toDto).toList();
+     }
 
     @Override
     public FeedResponseDto readFeed(String feedCode) {
