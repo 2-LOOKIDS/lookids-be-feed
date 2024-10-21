@@ -1,5 +1,7 @@
 package lookids.feed.feed.vo.out;
 
+import java.time.LocalDateTime;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -16,4 +18,5 @@ public class FeedResponseVo {
     private String content;
     private String contentMedia;
     private String tag;
+    private LocalDateTime createAt;
 }

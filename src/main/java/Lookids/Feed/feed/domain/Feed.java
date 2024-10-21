@@ -5,44 +5,35 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lookids.feed.common.entity.BaseEntity;
 
-import java.time.LocalDateTime;
 
 @Getter
 @Entity
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Feed {
+public class Feed extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String userUuid;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String feedCode;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String petCode;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String content;
 
-    @Column(length = 100)
+    @Column(nullable = false)
     private String contentMedia;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false)
     private String tag;
-
-    @Column(nullable = false, length = 100)
-    private LocalDateTime createAt;
-
-    @PrePersist
-    public void prePersist() {
-        this.createAt = (this.createAt == null) ? LocalDateTime.now() : this.createAt;
-    }
-
 }

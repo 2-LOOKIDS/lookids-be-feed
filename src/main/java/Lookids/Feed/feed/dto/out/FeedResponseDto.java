@@ -29,6 +29,7 @@ public class FeedResponseDto {
                 .content(feed.getContent())
                 .contentMedia(feed.getContentMedia())
                 .tag(feed.getTag())
+                .createAt(feed.getCreatedAt())
                 .build();
     }
 
@@ -39,6 +40,7 @@ public class FeedResponseDto {
                 .content(content)
                 .contentMedia(contentMedia)
                 .tag(tag)
+                .createAt(createAt)
                 .build();
     }
 }
