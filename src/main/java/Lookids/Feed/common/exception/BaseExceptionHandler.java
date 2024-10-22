@@ -1,8 +1,8 @@
-package lookids.feed.common.exception;
+package Lookids.Feed.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
-import lookids.feed.common.entity.BaseResponse;
-import lookids.feed.common.entity.BaseResponseStatus;
+import Lookids.Feed.common.entity.BaseResponse;
+import Lookids.Feed.common.entity.BaseResponseStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;

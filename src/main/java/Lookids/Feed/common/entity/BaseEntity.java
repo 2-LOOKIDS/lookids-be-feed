@@ -1,4 +1,4 @@
-package lookids.feed.common.entity;
+package Lookids.Feed.common.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.EntityListeners;

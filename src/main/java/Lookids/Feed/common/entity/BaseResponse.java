@@ -1,9 +1,9 @@
-package lookids.feed.common.entity;
+package Lookids.Feed.common.entity;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 
-import static lookids.feed.common.entity.BaseResponseStatus.SUCCESS;
+import static Lookids.Feed.common.entity.BaseResponseStatus.SUCCESS;
 
 public record BaseResponse<T>(HttpStatusCode httpStatus, Boolean isSuccess, String message, int code, T result) {
 

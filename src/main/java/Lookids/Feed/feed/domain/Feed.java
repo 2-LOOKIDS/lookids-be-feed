@@ -1,4 +1,4 @@
-package lookids.feed.feed.domain;
+package Lookids.Feed.feed.domain;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lookids.feed.common.entity.BaseEntity;
+import Lookids.Feed.common.entity.BaseEntity;
 
 @Getter
 @Entity
@@ -43,4 +43,6 @@ public class Feed extends BaseEntity {
 
     @Column(nullable = false)
     private String tag;
+
+    private String gpsInformation;
 }

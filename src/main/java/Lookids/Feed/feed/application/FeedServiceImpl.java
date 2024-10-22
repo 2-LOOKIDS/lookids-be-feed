@@ -1,22 +1,26 @@
-package lookids.feed.feed.application;
+package Lookids.Feed.feed.application;
 
+import Lookids.Feed.common.utills.CursorPage;
+import Lookids.Feed.feed.dto.out.FeedDetailResponseDto;
+import Lookids.Feed.feed.infrastructure.FeedRepositoryCustom;
+import Lookids.Feed.feed.vo.out.FeedResponseVo;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lookids.feed.common.entity.BaseResponseStatus;
-import lookids.feed.common.exception.BaseException;
-import lookids.feed.feed.domain.Feed;
-import lookids.feed.feed.dto.in.FeedRequestDto;
-import lookids.feed.feed.dto.out.FeedResponseDto;
-import lookids.feed.feed.infrastructure.FeedRepository;
-import org.springframework.stereotype.Service;
+import Lookids.Feed.common.entity.BaseResponseStatus;
+import Lookids.Feed.common.exception.BaseException;
+import Lookids.Feed.feed.domain.Feed;
+import Lookids.Feed.feed.dto.in.FeedRequestDto;
+import Lookids.Feed.feed.dto.out.FeedResponseDto;
+import Lookids.Feed.feed.infrastructure.FeedRepository;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class FeedServiceImpl implements FeedService {
 
     private final FeedRepository feedRepository;
+    private final FeedRepositoryCustom feedRepositoryCustom;
 
     @Override
     public void createFeed(FeedRequestDto feedRequestDto) {
@@ -24,16 +28,20 @@ public class FeedServiceImpl implements FeedService {
     }
 
      @Override
-     public List<FeedResponseDto> readUserFeedList(String userUuid) {
-         List<Feed> feedList = feedRepository.findByUserUuid(userUuid);
-         return feedList.stream()
-                 .map(FeedResponseDto::toDto).toList();
+     public CursorPage<FeedResponseVo> readUserFeedList(String userUuid, Integer page, Integer lastId) {
+        return feedRepositoryCustom.readUserFeedList(userUuid, page, lastId);
      }
 
     @Override
     public FeedResponseDto readFeed(String feedCode) {
         return FeedResponseDto.toDto(feedRepository.findByFeedCode(feedCode)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED)));
+    }
+
+    @Override
+    public FeedDetailResponseDto readFeedDetail(String feedCode) {
+        return FeedDetailResponseDto.toDto(feedRepository.findByFeedCode(feedCode)
+            .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED)));
     }
 
     @Transactional
