@@ -1,11 +1,11 @@
-package lookids.feed.feed.dto.in;
+package Lookids.Feed.feed.dto.in;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lookids.feed.feed.domain.Feed;
-import lookids.feed.feed.vo.in.FeedRequestVo;
+import Lookids.Feed.feed.domain.Feed;
+import Lookids.Feed.feed.vo.in.FeedRequestVo;
 
 import java.util.List;
 

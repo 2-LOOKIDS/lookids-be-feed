@@ -1,11 +1,11 @@
-package lookids.feed.feed.dto.out;
+package Lookids.Feed.feed.dto.out;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lookids.feed.feed.domain.Feed;
-import lookids.feed.feed.vo.out.FeedResponseVo;
+import Lookids.Feed.feed.domain.Feed;
+import Lookids.Feed.feed.vo.out.FeedResponseVo;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,21 +17,19 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class FeedResponseDto {
 
+    private Long feedId;
     private Long authorId;
     private String authorImage;
-    private Long feedId;
-    private String petCode;
-    private LocalDateTime createdAt;
-    private String tag;
     private String content;
     private List<MediaUrlResponse> mediaUrls;
+    private LocalDateTime createdAt;
+    private String tag;
 
     public static FeedResponseDto toDto(Feed feed) {
         return FeedResponseDto.builder()
+                .feedId(feed.getId())
                 .authorId(feed.getAuthorId())
                 .authorImage(feed.getAuthorImage())
-                .feedId(feed.getId())
-                .petCode(feed.getPetCode())
                 .createdAt(feed.getCreatedAt())
                 .tag(feed.getTag())
                 .content(feed.getContent())
@@ -43,10 +41,9 @@ public class FeedResponseDto {
 
     public FeedResponseVo toVo() {
         return FeedResponseVo.builder()
+                .feedId(feedId)
                 .authorId(authorId)
                 .authorImage(authorImage)
-                .feedId(feedId)
-                .petCode(petCode)
                 .createdAt(createdAt)
                 .tag(tag)
                 .content(content)

@@ -1,4 +1,4 @@
-package lookids.feed.common.exception;
+package Lookids.Feed.common.exception;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;

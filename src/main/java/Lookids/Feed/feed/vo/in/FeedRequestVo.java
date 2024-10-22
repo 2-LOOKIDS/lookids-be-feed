@@ -1,4 +1,4 @@
-package lookids.feed.feed.vo.in;
+package Lookids.Feed.feed.vo.in;
 
 import java.util.List;
 

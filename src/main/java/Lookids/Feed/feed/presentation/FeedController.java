@@ -1,18 +1,18 @@
-package lookids.feed.feed.presentation;
+package Lookids.Feed.feed.presentation;
 
+import Lookids.Feed.common.utills.CursorPage;
+import Lookids.Feed.feed.vo.out.FeedDetailResponseVo;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import lookids.feed.common.entity.BaseResponse;
-import lookids.feed.common.entity.BaseResponseStatus;
-import lookids.feed.feed.application.FeedService;
-import lookids.feed.feed.dto.in.FeedRequestDto;
-import lookids.feed.feed.dto.out.FeedResponseDto;
-import lookids.feed.feed.vo.in.FeedRequestVo;
-import lookids.feed.feed.vo.out.FeedResponseVo;
-import org.springframework.web.bind.annotation.*;
+import Lookids.Feed.common.entity.BaseResponse;
+import Lookids.Feed.common.entity.BaseResponseStatus;
+import Lookids.Feed.feed.application.FeedService;
+import Lookids.Feed.feed.dto.in.FeedRequestDto;
+import Lookids.Feed.feed.vo.in.FeedRequestVo;
+import Lookids.Feed.feed.vo.out.FeedResponseVo;
 
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,19 +29,25 @@ public class FeedController {
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);
     }
 
-     @Operation(summary = "userFeed 조회 API", description = "userFeed 조회 API 입니다.", tags = {"Feed"})
-     @GetMapping("/userFeed")
-     public BaseResponse<List<FeedResponseVo>> readUserFeedList(@RequestParam("user_uuid") String userUuid) {
-         List<FeedResponseVo> feedList = feedService.readUserFeedList(userUuid)
-                 .stream().map(FeedResponseDto::toVo)
-                 .toList();
-         return new BaseResponse<>(feedList);
-     }
+     @Operation(summary = "userfeed 조회 API", description = "userfeed 조회 API 입니다.", tags = {"Feed"})
+     @GetMapping("/userfeed")
+     public BaseResponse<CursorPage<FeedResponseVo>> readUserFeedList(
+         @RequestParam String userUuid,
+         @RequestParam(defaultValue = "0") int page,
+         @RequestParam(required = false) Integer lastId) {
+        return new BaseResponse<>(feedService.readUserFeedList(userUuid, page, lastId));
+    }
 
     @Operation(summary = "feed 조회 API", description = "feed 조회 API 입니다.", tags = {"Feed"})
-    @GetMapping
-    public BaseResponse<FeedResponseVo> readFeed(@RequestParam("feed_code") String feedCode) {
+    @GetMapping()
+    public BaseResponse<FeedResponseVo> readFeed(@RequestParam String feedCode) {
         return new BaseResponse<>(feedService.readFeed(feedCode).toVo());
+    }
+
+    @Operation(summary = "feed detail 조회 API", description = "feed detail 조회 API 입니다.", tags = {"Feed"})
+    @GetMapping("/detail")
+    public BaseResponse<FeedDetailResponseVo> readFeedDetail(@RequestParam String feedCode) {
+        return new BaseResponse<>(feedService.readFeedDetail(feedCode).toVo());
     }
 
     @Operation(summary = "feed 삭제 API", description = "feed 삭제 API 입니다.", tags = {"Feed"})

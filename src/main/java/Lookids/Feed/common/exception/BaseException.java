@@ -1,7 +1,7 @@
-package lookids.feed.common.exception;
+package Lookids.Feed.common.exception;
 
 import lombok.Getter;
-import lookids.feed.common.entity.BaseResponseStatus;
+import Lookids.Feed.common.entity.BaseResponseStatus;
 
 @Getter
 public class BaseException extends RuntimeException {

@@ -1,4 +1,4 @@
-package lookids.feed.common.entity;
+package Lookids.Feed.common.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

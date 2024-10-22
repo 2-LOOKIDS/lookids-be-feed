@@ -1,4 +1,4 @@
-package lookids.feed;
+package Lookids.Feed;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

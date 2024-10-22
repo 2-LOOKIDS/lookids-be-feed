@@ -1,4 +1,4 @@
-package lookids.feed.feed.dto.out;
+package Lookids.Feed.feed.dto.out;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

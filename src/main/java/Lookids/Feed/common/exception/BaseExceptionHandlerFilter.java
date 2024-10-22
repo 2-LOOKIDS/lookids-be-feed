@@ -1,4 +1,4 @@
-package lookids.feed.common.exception;
+package Lookids.Feed.common.exception;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.FilterChain;
@@ -6,8 +6,8 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import lookids.feed.common.entity.BaseResponse;
-import lookids.feed.common.entity.BaseResponseStatus;
+import Lookids.Feed.common.entity.BaseResponse;
+import Lookids.Feed.common.entity.BaseResponseStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
