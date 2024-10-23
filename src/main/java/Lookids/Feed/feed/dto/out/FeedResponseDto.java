@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class FeedResponseDto {
 
     private Long feedId;
+    private String feedCode;
     private Long authorId;
     private String authorImage;
     private String content;
@@ -27,27 +28,29 @@ public class FeedResponseDto {
 
     public static FeedResponseDto toDto(Feed feed) {
         return FeedResponseDto.builder()
-                .feedId(feed.getId())
-                .authorId(feed.getAuthorId())
-                .authorImage(feed.getAuthorImage())
-                .createdAt(feed.getCreatedAt())
-                .tag(feed.getTag())
-                .content(feed.getContent())
-                .mediaUrls(feed.getMediaUrls().stream()
+            .feedId(feed.getId())
+            .feedCode(feed.getFeedCode())
+            .authorId(feed.getAuthorId())
+            .authorImage(feed.getAuthorImage())
+            .createdAt(feed.getCreatedAt())
+            .tag(feed.getTag())
+            .content(feed.getContent())
+            .mediaUrls(feed.getMediaUrls().stream()
                 .map(MediaUrlResponse::new)
                 .collect(Collectors.toList()))
-                .build();
+            .build();
     }
 
     public FeedResponseVo toVo() {
         return FeedResponseVo.builder()
-                .feedId(feedId)
-                .authorId(authorId)
-                .authorImage(authorImage)
-                .createdAt(createdAt)
-                .tag(tag)
-                .content(content)
-                .mediaUrls(mediaUrls)
-                .build();
+            .feedId(feedId)
+            .feedCode(feedCode)
+            .authorId(authorId)
+            .authorImage(authorImage)
+            .createdAt(createdAt)
+            .tag(tag)
+            .content(content)
+            .mediaUrls(mediaUrls)
+            .build();
     }
 }

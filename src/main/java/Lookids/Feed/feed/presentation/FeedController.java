@@ -29,7 +29,7 @@ public class FeedController {
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);
     }
 
-     @Operation(summary = "userfeed 조회 API", description = "userfeed 조회 API 입니다.", tags = {"Feed"})
+     @Operation(summary = "user feed 조회 API", description = "user feed 조회 API 입니다.", tags = {"Feed"})
      @GetMapping("/userfeed")
      public BaseResponse<CursorPage<FeedResponseVo>> readUserFeedList(
          @RequestParam String userUuid,

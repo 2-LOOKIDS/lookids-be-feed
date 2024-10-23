@@ -62,19 +62,20 @@ public class FeedRepositoryCustomImpl implements FeedRepositoryCustom{
 
 		List<FeedResponseVo> userfeedList = content.stream()
 			.map(feedEntity -> FeedResponseVo.builder()
-					.feedId(feedEntity.getId())
-					.content(feedEntity.getContent())
-					.mediaUrls(feedEntity.getMediaUrls().stream()
-						.map(mediaUrl -> MediaUrlResponse.builder()
-							.mediaUrl(mediaUrl)
-							.build())
-						.collect(Collectors.toList()))
-					.authorId(feedEntity.getAuthorId())
-					.authorImage(feedEntity.getAuthorImage())
-					.createdAt(feedEntity.getCreatedAt())
-					.tag(feedEntity.getTag())
-					.build())
-				.toList();
+				.feedId(feedEntity.getId())
+				.feedCode(feedEntity.getFeedCode())
+				.content(feedEntity.getContent())
+				.mediaUrls(feedEntity.getMediaUrls().stream()
+					.map(mediaUrl -> MediaUrlResponse.builder()
+						.mediaUrl(mediaUrl)
+						.build())
+					.collect(Collectors.toList()))
+				.authorId(feedEntity.getAuthorId())
+				.authorImage(feedEntity.getAuthorImage())
+				.createdAt(feedEntity.getCreatedAt())
+				.tag(feedEntity.getTag())
+				.build())
+			.toList();
 
 		return new CursorPage<> (userfeedList, nextCursor, hasNext, currentPageSize, Optional.ofNullable(page).orElse(DEFAULT_PAGE_NUMBER));
 	}

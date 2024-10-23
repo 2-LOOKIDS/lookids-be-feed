@@ -16,6 +16,7 @@ import Lookids.Feed.feed.dto.out.MediaUrlResponse;
 public class FeedResponseVo {
 
     private Long feedId;
+    private String feedCode;
     private String content;
     private List<MediaUrlResponse> mediaUrls;
     private Long authorId;
