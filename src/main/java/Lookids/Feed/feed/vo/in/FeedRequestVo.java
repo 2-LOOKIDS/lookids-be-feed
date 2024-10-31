@@ -2,6 +2,7 @@ package Lookids.Feed.feed.vo.in;
 
 import java.util.List;
 
+import Lookids.Feed.media.dto.in.MediaRequestDto;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -11,10 +12,8 @@ public class FeedRequestVo {
 
     private String userUuid;
     private String petCode;
-    private String feedCode;
-    private Long authorId;
-    private String authorImage;
     private String content;
-    private List<String> mediaUrls;
     private String tag;
+    private List<MediaRequestDto> media;
+    private String gpsInformation;
 }
