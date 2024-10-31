@@ -1,13 +1,15 @@
 package Lookids.Feed.feed.domain;
 
-import java.util.List;
-
-import jakarta.persistence.*;
+import Lookids.Feed.common.entity.BaseEntity;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import Lookids.Feed.common.entity.BaseEntity;
 
 @Getter
 @Entity
@@ -24,12 +26,6 @@ public class Feed extends BaseEntity {
     private String userUuid;
 
     @Column(nullable = false)
-    private Long authorId;
-
-    @Column(nullable = false)
-    private String authorImage;
-
-    @Column(nullable = false)
     private String feedCode;
 
     @Column(nullable = false)
@@ -39,10 +35,14 @@ public class Feed extends BaseEntity {
     private String content;
 
     @Column(nullable = false)
-    private List<String> mediaUrls;
-
-    @Column(nullable = false)
     private String tag;
 
+    @Column(nullable = false)
+    private boolean isDeleted = false;
+
     private String gpsInformation;
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
 }

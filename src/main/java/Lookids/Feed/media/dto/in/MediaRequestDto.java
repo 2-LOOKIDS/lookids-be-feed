@@ -1,4 +1,4 @@
-package Lookids.Feed.feed.dto.out;
+package Lookids.Feed.media.dto.in;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class MediaUrlResponse {
+public class MediaRequestDto {
 
-    private String mediaUrl;
+	private String mediaType;
+	private String mediaUrl;
+	
 }
