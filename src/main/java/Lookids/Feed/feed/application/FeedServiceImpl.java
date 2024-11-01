@@ -2,7 +2,9 @@ package Lookids.Feed.feed.application;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
+import Lookids.Feed.media.dto.out.MediaResponseDto;
 import org.springframework.stereotype.Service;
 
 import Lookids.Feed.common.entity.BaseResponseStatus;
@@ -44,14 +46,22 @@ public class FeedServiceImpl implements FeedService {
 
     @Override
     public FeedResponseDto readFeed(String feedCode) {
-        return FeedResponseDto.toDto(feedRepository.findByFeedCodeAndIsDeletedFalse(feedCode)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED)));
+        Feed feed = feedRepository.findByFeedCodeAndIsDeletedFalse(feedCode)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
+        List<MediaResponseDto> mediaList = mediaRepository.findByFeedCode(feedCode).stream()
+                .map(MediaResponseDto::toDto)
+                .collect(Collectors.toList());
+        return FeedResponseDto.toDto(feed, mediaList);
     }
 
     @Override
     public FeedDetailResponseDto readFeedDetail(String feedCode) {
-        return FeedDetailResponseDto.toDto(feedRepository.findByFeedCodeAndIsDeletedFalse(feedCode)
-            .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED)));
+        Feed feed = feedRepository.findByFeedCodeAndIsDeletedFalse(feedCode)
+                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
+        List<MediaResponseDto> mediaList = mediaRepository.findByFeedCode(feedCode).stream()
+                .map(MediaResponseDto::toDto)
+                .collect(Collectors.toList());
+        return FeedDetailResponseDto.toDto(feed, mediaList);
     }
 
     @Transactional

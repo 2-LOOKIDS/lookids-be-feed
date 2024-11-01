@@ -3,6 +3,8 @@ package Lookids.Feed.feed.infrastructure;
 import java.util.List;
 import java.util.Optional;
 
+import Lookids.Feed.media.dto.out.MediaResponseDto;
+import Lookids.Feed.media.infrastructure.MediaRepository;
 import org.springframework.stereotype.Repository;
 
 import com.querydsl.core.BooleanBuilder;
@@ -22,6 +24,8 @@ public class FeedRepositoryCustomImpl implements FeedRepositoryCustom{
 	private static final int DEFAULT_PAGE_NUMBER = 0;
 
 	private final JPAQueryFactory jpaQueryFactory;
+	private final MediaRepository mediaRepository; // MediaRepository 주입
+
 
 	public CursorPage<FeedResponseVo> findByUserUuidAndIsDeletedFalse(String userUuid, Integer page, Integer lastId) {
 
@@ -55,16 +59,23 @@ public class FeedRepositoryCustomImpl implements FeedRepositoryCustom{
 			hasNext = content.size() == currentPageSize;
 		}
 
-		List<FeedResponseVo> userfeedList = content.stream()
-			.map(feedEntity -> FeedResponseVo.builder()
-				.feedId(feedEntity.getId())
-				.feedCode(feedEntity.getFeedCode())
-				.content(feedEntity.getContent())
-				.createdAt(feedEntity.getCreatedAt())
-				.tag(feedEntity.getTag())
-				.build())
-			.toList();
+		List<FeedResponseVo> userFeedList = content.stream()
+				.map(feedEntity -> {
+					List<MediaResponseDto> mediaList = mediaRepository.findByFeedCode(feedEntity.getFeedCode()).stream()
+							.map(MediaResponseDto::toDto)
+							.toList();
 
-		return new CursorPage<> (userfeedList, hasNext, currentPageSize, Optional.ofNullable(page).orElse(DEFAULT_PAGE_NUMBER));
+					return FeedResponseVo.builder()
+							.feedId(feedEntity.getId())
+							.feedCode(feedEntity.getFeedCode())
+							.content(feedEntity.getContent())
+							.createdAt(feedEntity.getCreatedAt())
+							.tag(feedEntity.getTag())
+							.mediaList(mediaList)
+							.build();
+				})
+				.toList();
+
+		return new CursorPage<> (userFeedList, hasNext, currentPageSize, Optional.ofNullable(page).orElse(DEFAULT_PAGE_NUMBER));
 	}
 }
