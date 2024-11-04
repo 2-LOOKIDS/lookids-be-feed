@@ -29,17 +29,13 @@ public class Feed extends BaseEntity {
     private String feedCode;
 
     @Column(nullable = false)
-    private String petCode;
-
-    @Column(nullable = false)
     private String content;
-
-    @Column(nullable = false)
-    private String tag;
 
     @Column(nullable = false)
     private boolean isDeleted = false;
 
+    private String petCode;
+    private String tag;
     private String gpsInformation;
 
     public void setDeleted(boolean deleted) {
