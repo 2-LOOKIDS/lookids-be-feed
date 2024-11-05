@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/feed/read")
+@RequestMapping("/read/feed")
 public class FeedReadController {
 
 	private final FeedService feedService;
