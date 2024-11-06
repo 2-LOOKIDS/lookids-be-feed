@@ -36,7 +36,6 @@ public class Feed extends BaseEntity {
 
     private String petCode;
     private String tag;
-    private String gpsInformation;
 
     public void setDeleted(boolean deleted) {
         isDeleted = deleted;

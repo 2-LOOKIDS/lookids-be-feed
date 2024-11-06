@@ -15,5 +15,4 @@ public class FeedRequestVo {
     private String content;
     private String tag;
     private List<MediaRequestDto> media;
-    private String gpsInformation;
 }
