@@ -30,6 +30,7 @@ public class FeedServiceImpl implements FeedService {
     private final MediaRepository mediaRepository;
     private final FeedRepositoryCustom feedRepositoryCustom;
 
+    @Transactional
     @Override
     public void createFeed(FeedRequestDto feedRequestDto) {
         String feedCode;
@@ -37,7 +38,15 @@ public class FeedServiceImpl implements FeedService {
         Feed saveFeed = feedRepository.save(feedRequestDto.toEntity(feedCode));
         List<Media> mediaList = feedRequestDto.toMediaEntity(feedCode, saveFeed);
         mediaRepository.saveAll(mediaList);
+        // String data = "feed created" ;
+        // ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC, data);
+        // kafkaTemplate.send(record);
     }
+
+    // @KafkaListener(topics = TOPIC, groupId = "kafka-feed-service")
+    // public void readMongoFeed(String message) {
+    //     log.info("message: {}", message);
+    // }
 
      @Override
      public CursorPage<FeedResponseVo> readUserFeedList(String userUuid, Integer page, Integer lastId) {

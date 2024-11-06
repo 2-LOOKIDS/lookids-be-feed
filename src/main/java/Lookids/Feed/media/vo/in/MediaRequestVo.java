@@ -8,6 +8,9 @@ import lombok.ToString;
 public class MediaRequestVo {
 
 	private String mediaType;
+	private int mediaOrder;
 	private String mediaUrl;
+	private Double latitude;
+	private Double longitude;
 
 }

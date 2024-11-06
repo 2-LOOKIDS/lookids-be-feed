@@ -29,10 +29,16 @@ public class Media {
 	private String feedCode;
 
 	@Column(nullable = false)
+	private int mediaOrder;
+
+	@Column(nullable = false)
 	private String mediaType;
 
 	@Column(nullable = false)
 	private String mediaUrl;
+
+	private Double latitude;
+	private Double longitude;
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "feedId", nullable = false)

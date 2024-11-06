@@ -12,6 +12,9 @@ import lombok.NoArgsConstructor;
 public class MediaRequestDto {
 
 	private String mediaType;
+	private int mediaOrder;
 	private String mediaUrl;
+	private Double latitude;
+	private Double longitude;
 	
 }

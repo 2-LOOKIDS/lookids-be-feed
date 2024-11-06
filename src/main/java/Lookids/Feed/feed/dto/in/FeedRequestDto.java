@@ -23,7 +23,6 @@ public class FeedRequestDto {
     private String content;
     private String tag;
     private List<MediaRequestDto> media;
-    private String gpsInformation;
 
 
     public Feed toEntity(String feedCode) {
@@ -33,7 +32,6 @@ public class FeedRequestDto {
                 .feedCode(feedCode)
                 .content(content)
                 .tag(tag)
-                .gpsInformation(gpsInformation)
                 .build();
     }
 
@@ -43,6 +41,9 @@ public class FeedRequestDto {
                 .feedCode(feedCode)
                 .mediaType(mediaDto.getMediaType())
                 .mediaUrl(mediaDto.getMediaUrl())
+                .mediaOrder(mediaDto.getMediaOrder())
+                .latitude(mediaDto.getLatitude())
+                .longitude(mediaDto.getLongitude())
                 .feed(feed)
                 .build())
             .collect(Collectors.toList());
@@ -55,7 +56,6 @@ public class FeedRequestDto {
                 .content(feedRequestVo.getContent())
                 .tag(feedRequestVo.getTag())
                 .media(feedRequestVo.getMedia())
-                .gpsInformation(feedRequestVo.getGpsInformation())
                 .build();
     }
 
