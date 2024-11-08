@@ -1,84 +1,63 @@
 package Lookids.Feed.feed.application;
 
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
-
-import Lookids.Feed.media.dto.out.MediaResponseDto;
+import org.bson.types.ObjectId;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import Lookids.Feed.common.entity.BaseResponseStatus;
 import Lookids.Feed.common.exception.BaseException;
-import Lookids.Feed.common.utills.CursorPage;
 import Lookids.Feed.feed.domain.Feed;
 import Lookids.Feed.feed.dto.in.FeedRequestDto;
-import Lookids.Feed.feed.dto.out.FeedDetailResponseDto;
-import Lookids.Feed.feed.dto.out.FeedResponseDto;
 import Lookids.Feed.feed.infrastructure.FeedRepository;
-import Lookids.Feed.feed.infrastructure.FeedRepositoryCustom;
-import Lookids.Feed.feed.vo.out.FeedResponseVo;
-import Lookids.Feed.media.domain.Media;
-import Lookids.Feed.media.infrastructure.MediaRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class FeedServiceImpl implements FeedService {
 
     private final FeedRepository feedRepository;
-    private final MediaRepository mediaRepository;
-    private final FeedRepositoryCustom feedRepositoryCustom;
+    private final KafkaTemplate<String, FeedRequestDto> kafkaTemplate;
+    private static final String TOPIC = "feed-events";
 
-    @Transactional
+
     @Override
-    public void createFeed(FeedRequestDto feedRequestDto) {
-        String feedCode;
-        feedCode = UUID.randomUUID().toString();
-        Feed saveFeed = feedRepository.save(feedRequestDto.toEntity(feedCode));
-        List<Media> mediaList = feedRequestDto.toMediaEntity(feedCode, saveFeed);
-        mediaRepository.saveAll(mediaList);
-        // String data = "feed created" ;
-        // ProducerRecord<String, String> record = new ProducerRecord<>(TOPIC, data);
-        // kafkaTemplate.send(record);
+    public void createFeed(FeedRequestDto feedRequestDto){
+        feedRepository.save(feedRequestDto.toEntity());
+        // ObjectMapper objectMapper = new ObjectMapper();
+        // kafkaTemplate.send(TOPIC, feedRequestDto);
     }
 
-    // @KafkaListener(topics = TOPIC, groupId = "kafka-feed-service")
-    // public void readMongoFeed(String message) {
-    //     log.info("message: {}", message);
+    //  @Override
+    //  public CursorPage<FeedResponseVo> readUserFeedList(String userUuid, Integer page, Integer lastId) {
+    //     return feedRepositoryCustom.findByUserUuidAndIsDeletedFalse(userUuid, page, lastId);
+    //  }
+    //
+    // @Override
+    // public FeedResponseDto readFeed(String feedCode) {
+    //     Feed feed = feedRepository.findByFeedCodeAndIsDeletedFalse(feedCode)
+    //             .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
+    //     List<MediaResponseDto> mediaList = mediaRepository.findByFeedCode(feedCode).stream()
+    //             .map(MediaResponseDto::toDto)
+    //             .collect(Collectors.toList());
+    //     return FeedResponseDto.toDto(feed, mediaList);
+    // }
+    //
+    // @Override
+    // public FeedDetailResponseDto readFeedDetail(String feedCode) {
+    //     Feed feed = feedRepository.findByFeedCodeAndIsDeletedFalse(feedCode)
+    //             .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
+    //     List<MediaResponseDto> mediaList = mediaRepository.findByFeedCode(feedCode).stream()
+    //             .map(MediaResponseDto::toDto)
+    //             .collect(Collectors.toList());
+    //     return FeedDetailResponseDto.toDto(feed, mediaList);
     // }
 
-     @Override
-     public CursorPage<FeedResponseVo> readUserFeedList(String userUuid, Integer page, Integer lastId) {
-        return feedRepositoryCustom.findByUserUuidAndIsDeletedFalse(userUuid, page, lastId);
-     }
-
     @Override
-    public FeedResponseDto readFeed(String feedCode) {
-        Feed feed = feedRepository.findByFeedCodeAndIsDeletedFalse(feedCode)
+    public void deleteFeed(String userUuid, ObjectId id) {
+        Feed feed = feedRepository.findByIdAndIsDeletedFalse(id)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
-        List<MediaResponseDto> mediaList = mediaRepository.findByFeedCode(feedCode).stream()
-                .map(MediaResponseDto::toDto)
-                .collect(Collectors.toList());
-        return FeedResponseDto.toDto(feed, mediaList);
-    }
-
-    @Override
-    public FeedDetailResponseDto readFeedDetail(String feedCode) {
-        Feed feed = feedRepository.findByFeedCodeAndIsDeletedFalse(feedCode)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
-        List<MediaResponseDto> mediaList = mediaRepository.findByFeedCode(feedCode).stream()
-                .map(MediaResponseDto::toDto)
-                .collect(Collectors.toList());
-        return FeedDetailResponseDto.toDto(feed, mediaList);
-    }
-
-    @Transactional
-    @Override
-    public void deleteFeed(String feedCode) {
-        Feed feed = feedRepository.findByFeedCode(feedCode)
-                .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
-        feed.setDeleted(true);
-        feedRepository.save(feed);
+        feedRepository.save(FeedRequestDto.toDelete(feed).toEntityForUpdate());
     }
 }

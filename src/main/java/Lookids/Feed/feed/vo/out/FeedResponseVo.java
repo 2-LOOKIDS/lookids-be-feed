@@ -3,7 +3,7 @@ package Lookids.Feed.feed.vo.out;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import Lookids.Feed.media.dto.out.MediaResponseDto;
+import Lookids.Feed.feed.domain.GPSInfo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,11 +15,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class FeedResponseVo {
 
-    private Long feedId;
-    private String feedCode;
+    // private String feedCode;
     private String content;
     private LocalDateTime createdAt;
-    private String tag;
-    private List<MediaResponseDto> mediaList;
-
+    private List<String> tags;
+    private GPSInfo gpsInfo;
 }

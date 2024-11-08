@@ -5,7 +5,6 @@ import java.util.List;
 
 import Lookids.Feed.feed.domain.Feed;
 import Lookids.Feed.feed.vo.out.FeedResponseVo;
-import Lookids.Feed.media.dto.out.MediaResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,32 +16,27 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FeedResponseDto {
 
-    private Long feedId;
-    private String feedCode;
+    // private String feedCode;
     private String content;
     private LocalDateTime createdAt;
-    private String tag;
-    private List<MediaResponseDto> mediaList;
+    private List<String> tags;
+    // private List<MediaResponseDto> mediaList;
 
-    public static FeedResponseDto toDto(Feed feed, List<MediaResponseDto> mediaList) {
+    public static FeedResponseDto toDto(Feed feed) {
         return FeedResponseDto.builder()
-                .feedId(feed.getId())
-                .feedCode(feed.getFeedCode())
+                // .feedCode(feed.getFeedCode())
                 .createdAt(feed.getCreatedAt())
-                .tag(feed.getTag())
+                .tags(feed.getTags())
                 .content(feed.getContent())
-                .mediaList(mediaList)
                 .build();
     }
 
     public FeedResponseVo toVo() {
         return FeedResponseVo.builder()
-                .feedId(feedId)
-                .feedCode(feedCode)
+                // .feedCode(feedCode)
                 .createdAt(createdAt)
-                .tag(tag)
+                .tags(tags)
                 .content(content)
-                .mediaList(mediaList)
                 .build();
     }
 }
