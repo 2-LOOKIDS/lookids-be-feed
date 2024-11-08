@@ -1,43 +1,54 @@
 package Lookids.Feed.feed.domain;
 
-import Lookids.Feed.common.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@Entity
-@Builder
-@AllArgsConstructor
+@Document
 @NoArgsConstructor
-public class Feed extends BaseEntity {
+public class Feed {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Column(nullable = false)
+    private ObjectId id;
     private String userUuid;
-
-    @Column(nullable = false)
-    private String feedCode;
-
-    @Column(nullable = false)
+    // private String feedCode;
     private String content;
-
-    @Column(nullable = false)
-    private boolean isDeleted = false;
-
+    private boolean isDeleted;
     private String petCode;
-    private String tag;
+    private List<String> tags;
+    private GPSInfo gpSinfo;
+    @CreatedDate
+    private LocalDateTime createdAt;
 
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
+    @Builder
+    public Feed(
+        ObjectId id,
+        String userUuid,
+        // String feedCode,
+        String content,
+        String petCode,
+        List<String> tags,
+        boolean isDeleted,
+        LocalDateTime createdAt,
+        GPSInfo gpSinfo
+    ) {
+        this.id = id;
+        // this.feedCode = feedCode;
+        this.userUuid = userUuid;
+        this.content = content;
+        this.petCode = petCode;
+        this.tags = tags;
+        this.isDeleted = isDeleted;
+        this.createdAt = createdAt;
+        this.gpSinfo = gpSinfo;
     }
 }
