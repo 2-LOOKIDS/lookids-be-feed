@@ -1,6 +1,5 @@
 package Lookids.Feed.feed.application;
 
-import org.bson.types.ObjectId;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +7,7 @@ import Lookids.Feed.common.entity.BaseResponseStatus;
 import Lookids.Feed.common.exception.BaseException;
 import Lookids.Feed.feed.domain.Feed;
 import Lookids.Feed.feed.dto.in.FeedRequestDto;
+import Lookids.Feed.feed.dto.in.KafkaDto;
 import Lookids.Feed.feed.infrastructure.FeedRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -18,15 +18,18 @@ import lombok.extern.slf4j.Slf4j;
 public class FeedServiceImpl implements FeedService {
 
     private final FeedRepository feedRepository;
-    private final KafkaTemplate<String, FeedRequestDto> kafkaTemplate;
-    private static final String TOPIC = "feed-events";
-
+    private final KafkaTemplate<String, KafkaDto> kafkaTemplate;
+    private final KafkaTemplate<String, String> userkafkaTemplate;
+    private static final String TOPIC = "feed-create";
 
     @Override
     public void createFeed(FeedRequestDto feedRequestDto){
-        feedRepository.save(feedRequestDto.toEntity());
-        // ObjectMapper objectMapper = new ObjectMapper();
-        // kafkaTemplate.send(TOPIC, feedRequestDto);
+        Feed savefeed = feedRepository.save(feedRequestDto.toEntity());
+        userkafkaTemplate.send(TOPIC, feedRequestDto.getUuid());
+        log.info("UUID Kafka: {}",feedRequestDto.getUuid());
+        KafkaDto kafkaDto = feedRequestDto.toDto(savefeed);
+        kafkaTemplate.send(TOPIC, kafkaDto);
+        log.info("Sent feed request DTO to Kafka: {}", kafkaDto);
     }
 
     //  @Override
@@ -55,8 +58,8 @@ public class FeedServiceImpl implements FeedService {
     // }
 
     @Override
-    public void deleteFeed(String userUuid, ObjectId id) {
-        Feed feed = feedRepository.findByIdAndIsDeletedFalse(id)
+    public void deleteFeed(String uuid, String feedCode) {
+        Feed feed = feedRepository.findByFeedCodeAndStateFalse(feedCode)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
         feedRepository.save(FeedRequestDto.toDelete(feed).toEntityForUpdate());
     }
