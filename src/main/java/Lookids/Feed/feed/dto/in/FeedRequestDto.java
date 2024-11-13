@@ -1,11 +1,12 @@
 package Lookids.Feed.feed.dto.in;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.bson.types.ObjectId;
 
 import Lookids.Feed.feed.domain.Feed;
-import Lookids.Feed.feed.domain.GPSInfo;
 import Lookids.Feed.feed.vo.in.FeedRequestVo;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,60 +18,76 @@ import lombok.Getter;
 public class FeedRequestDto {
 
     private ObjectId id;
-    // private String feedCode;
-    private String userUuid;
+    private String feedCode;
+    private String uuid;
     private String petCode;
     private String content;
     private List<String> tags;
-    private boolean isDeleted;
-    private GPSInfo gpsInfo;
-//    private List<MediaRequestDto> media;
+    private boolean state;
+    private List<String> mediaCode;
+    private LocalDateTime createdAt;
+
 
     public Feed toEntity() {
-       // String feedCode = UUID.randomUUID().toString();
         return Feed.builder()
-            // .feedCode(feedCode)
-            .userUuid(userUuid)
+            .feedCode(UUID.randomUUID().toString())
+            .uuid(uuid)
             .petCode(petCode)
             .content(content)
             .tags(tags)
-            .gpSinfo(gpsInfo)
-            .isDeleted(false)
+            .mediaCode(mediaCode)
+            .state(false)
             .build();
     }
 
-    public static FeedRequestDto toDto(FeedRequestVo feedRequestVo, String userUuid) {
+    public static FeedRequestDto toDto(FeedRequestVo feedRequestVo, String uuid) {
         return FeedRequestDto.builder()
-            .userUuid(userUuid)
+            .uuid(uuid)
             .petCode(feedRequestVo.getPetCode())
             .content(feedRequestVo.getContent())
             .tags(feedRequestVo.getTags())
-            .gpsInfo(feedRequestVo.getGpsInfo())
-//          .media(feedRequestVo.getMedia())
+            .mediaCode(feedRequestVo.getMediaCode())
             .build();
     }
 
     public static FeedRequestDto toDelete(Feed feed) {
         return FeedRequestDto.builder()
             .id(feed.getId())
-            .userUuid(feed.getUserUuid())
+            .uuid(feed.getUuid())
+            .feedCode(feed.getFeedCode())
             .petCode(feed.getPetCode())
-            .isDeleted(true)
+            .state(true)
             .content(feed.getContent())
             .tags(feed.getTags())
-            .gpsInfo(feed.getGpSinfo())
+            .mediaCode(feed.getMediaCode())
+            .createdAt(feed.getCreatedAt())
             .build();
     }
 
     public Feed toEntityForUpdate() {
         return Feed.builder()
             .id(id)
-            .userUuid(userUuid)
+            .feedCode(feedCode)
+            .uuid(uuid)
             .petCode(petCode)
             .content(content)
             .tags(tags)
-            .isDeleted(isDeleted)
-            .gpSinfo(gpsInfo)
+            .mediaCode(mediaCode)
+            .state(state)
+            // .createdAt(createdAt)
+            .build();
+    }
+
+    public KafkaDto toDto(Feed savefeed) {
+        return KafkaDto.builder()
+            .feedCode(savefeed.getFeedCode())
+            .uuid(this.uuid)
+            .petCode(this.petCode)
+            .content(this.content)
+            .tags(this.tags)
+            .state(this.state)
+            .mediaCode(this.mediaCode)
+            .createdAt(savefeed.getCreatedAt())
             .build();
     }
 }

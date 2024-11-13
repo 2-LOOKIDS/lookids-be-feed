@@ -19,36 +19,36 @@ public class Feed {
 
     @Id
     private ObjectId id;
-    private String userUuid;
-    // private String feedCode;
+    private String feedCode;
+    private String uuid;
     private String content;
-    private boolean isDeleted;
+    private boolean state;
     private String petCode;
     private List<String> tags;
-    private GPSInfo gpSinfo;
+    private List<String> mediaCode;
     @CreatedDate
     private LocalDateTime createdAt;
 
     @Builder
     public Feed(
         ObjectId id,
-        String userUuid,
-        // String feedCode,
+        String uuid,
+        String feedCode,
         String content,
         String petCode,
         List<String> tags,
-        boolean isDeleted,
+        boolean state,
         LocalDateTime createdAt,
-        GPSInfo gpSinfo
+        List<String> mediaCode
     ) {
         this.id = id;
-        // this.feedCode = feedCode;
-        this.userUuid = userUuid;
+        this.feedCode = feedCode;
+        this.uuid = uuid;
         this.content = content;
         this.petCode = petCode;
         this.tags = tags;
-        this.isDeleted = isDeleted;
+        this.state = state;
         this.createdAt = createdAt;
-        this.gpSinfo = gpSinfo;
+        this.mediaCode = mediaCode;
     }
 }

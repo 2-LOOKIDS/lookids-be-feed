@@ -1,6 +1,5 @@
 package Lookids.Feed.feed.presentation;
 
-import org.bson.types.ObjectId;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,18 +26,18 @@ public class FeedWriteController {
     @Operation(summary = "feed 등록 API", description = "feed 등록 API 입니다.", tags = {"Feed"})
     @PostMapping
     public BaseResponse<Void> createFeed(
-            @RequestHeader String userUuid,
+            @RequestHeader String uuid,
             @RequestBody FeedRequestVo feedRequestVo) {
-        feedService.createFeed(FeedRequestDto.toDto(feedRequestVo, userUuid));
+        feedService.createFeed(FeedRequestDto.toDto(feedRequestVo, uuid));
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);
     }
 
     @Operation(summary = "feed 삭제 API", description = "feed 삭제 API 입니다.", tags = {"Feed"})
     @DeleteMapping
     public BaseResponse<Void> deleteFeed(
-        @RequestHeader String userUuid,
-        @RequestParam ObjectId id) {
-        feedService.deleteFeed(userUuid, id);
+        @RequestHeader String uuid,
+        @RequestParam String feedCode) {
+        feedService.deleteFeed(uuid, feedCode);
         return new BaseResponse<>(BaseResponseStatus.SUCCESS);
     }
 }

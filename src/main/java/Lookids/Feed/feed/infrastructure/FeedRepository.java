@@ -10,5 +10,5 @@ import Lookids.Feed.feed.domain.Feed;
 public interface FeedRepository extends MongoRepository<Feed, ObjectId> {
     // Optional<Feed> findByFeedCode(String feedCode);
     // Optional<Feed> findByFeedCodeAndIsDeletedFalse(String feedCode);
-	Optional<Feed> findByIdAndIsDeletedFalse(ObjectId id);
+	Optional<Feed> findByFeedCodeAndStateFalse(String feedCode);
 }

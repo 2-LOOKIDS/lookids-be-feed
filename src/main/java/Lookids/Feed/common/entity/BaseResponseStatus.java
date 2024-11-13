@@ -1,9 +1,9 @@
 package Lookids.Feed.common.entity;
 
+import org.springframework.http.HttpStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 
 @Getter
 @AllArgsConstructor
@@ -95,7 +95,7 @@ public enum BaseResponseStatus {
     // Media
     NO_EXIST_MEDIA(HttpStatus.NOT_FOUND, false, 6001, "존재하지 않는 미디어입니다");
 
-    private final HttpStatusCode httpStatusCode;
+    private final HttpStatus httpStatusCode;
     private final boolean isSuccess;
     private final int code;
     private final String message;
