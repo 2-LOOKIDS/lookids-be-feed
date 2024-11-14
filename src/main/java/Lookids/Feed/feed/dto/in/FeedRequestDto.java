@@ -81,7 +81,7 @@ public class FeedRequestDto {
     public KafkaDto toDto(Feed savefeed) {
         return KafkaDto.builder()
             .feedCode(savefeed.getFeedCode())
-            .uuid(this.uuid)
+            // .uuid(this.uuid)
             .petCode(this.petCode)
             .content(this.content)
             .tags(this.tags)
