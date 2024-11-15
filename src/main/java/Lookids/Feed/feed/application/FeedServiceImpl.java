@@ -1,7 +1,10 @@
 package Lookids.Feed.feed.application;
 
+import java.util.concurrent.CompletableFuture;
+
 import org.apache.catalina.User;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
 
 import Lookids.Feed.common.entity.BaseResponseStatus;
@@ -31,8 +34,9 @@ public class FeedServiceImpl implements FeedService {
         userkafkaTemplate.send("userprofile-request",userKafkaDto);
         // log.info("UUID Kafka: {}",userKafkaDto);
         KafkaDto kafkaDto = feedRequestDto.toDto(savefeed);
-        kafkaTemplate.send("feed-create", kafkaDto);
-        // log.info("Sent feed request DTO to Kafka: {}", kafkaDto);
+        CompletableFuture<SendResult<String, KafkaDto>> future = kafkaTemplate.send("feed-create", kafkaDto);
+        // kafkaTemplate.send("feed-create", kafkaDto);
+        log.info("Sent feed request DTO to Kafka: {}", kafkaDto);
     }
 
     //  @Override
