@@ -1,6 +1,8 @@
 package Lookids.Feed.feed.dto.in;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.UUID;
 
@@ -37,6 +39,7 @@ public class FeedRequestDto {
             .tags(tags)
             .mediaCode(mediaCode)
             .state(false)
+            .createdAt(createdAt)
             .build();
     }
 
@@ -74,12 +77,12 @@ public class FeedRequestDto {
             .tags(tags)
             .mediaCode(mediaCode)
             .state(state)
-            // .createdAt(createdAt)
+            .createdAt(createdAt)
             .build();
     }
 
-    public KafkaDto toDto(Feed savefeed) {
-        return KafkaDto.builder()
+    public FeedKafkaDto toDto(Feed savefeed) {
+        return FeedKafkaDto.builder()
             .feedCode(savefeed.getFeedCode())
             .uuid(this.uuid)
             .petCode(this.petCode)

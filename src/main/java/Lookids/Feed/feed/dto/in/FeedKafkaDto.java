@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @ToString
-public class KafkaDto {
+public class FeedKafkaDto {
 
 	private String feedCode;
 	private String uuid;
@@ -23,7 +23,7 @@ public class KafkaDto {
 	private LocalDateTime createdAt;
 
 	@Builder
-	public KafkaDto(String feedCode, String uuid, String petCode, String content,
+	public FeedKafkaDto(String feedCode, String uuid, String petCode, String content,
 		List<String> tags, boolean state, List<String> mediaCode, LocalDateTime createdAt) {
 		this.feedCode = feedCode;
 		this.uuid = uuid;
