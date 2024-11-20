@@ -26,7 +26,7 @@ public class FeedRequestDto {
     private String content;
     private List<String> tags;
     private boolean state;
-    private List<String> mediaCode;
+    private List<String> mediaUrl;
     private LocalDateTime createdAt;
 
 
@@ -37,7 +37,7 @@ public class FeedRequestDto {
             .petCode(petCode)
             .content(content)
             .tags(tags)
-            .mediaCode(mediaCode)
+            .mediaUrl(mediaUrl)
             .state(false)
             .createdAt(createdAt)
             .build();
@@ -49,7 +49,7 @@ public class FeedRequestDto {
             .petCode(feedRequestVo.getPetCode())
             .content(feedRequestVo.getContent())
             .tags(feedRequestVo.getTags())
-            .mediaCode(feedRequestVo.getMediaCode())
+            .mediaUrl(feedRequestVo.getMediaUrl())
             .build();
     }
 
@@ -62,7 +62,7 @@ public class FeedRequestDto {
             .state(true)
             .content(feed.getContent())
             .tags(feed.getTags())
-            .mediaCode(feed.getMediaCode())
+            .mediaUrl(feed.getMediaUrl())
             .createdAt(feed.getCreatedAt())
             .build();
     }
@@ -75,7 +75,7 @@ public class FeedRequestDto {
             .petCode(petCode)
             .content(content)
             .tags(tags)
-            .mediaCode(mediaCode)
+            .mediaUrl(mediaUrl)
             .state(state)
             .createdAt(createdAt)
             .build();
@@ -84,12 +84,12 @@ public class FeedRequestDto {
     public FeedKafkaDto toDto(Feed savefeed) {
         return FeedKafkaDto.builder()
             .feedCode(savefeed.getFeedCode())
-            .uuid(this.uuid)
-            .petCode(this.petCode)
-            .content(this.content)
-            .tags(this.tags)
-            .state(this.state)
-            .mediaCode(this.mediaCode)
+            .uuid(uuid)
+            .petCode(petCode)
+            .content(content)
+            .tags(tags)
+            .state(state)
+            .mediaUrl(mediaUrl)
             .createdAt(savefeed.getCreatedAt())
             .build();
     }
