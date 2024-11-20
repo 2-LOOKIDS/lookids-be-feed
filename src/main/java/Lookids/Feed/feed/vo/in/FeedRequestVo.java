@@ -12,6 +12,6 @@ public class FeedRequestVo {
     private String petCode;
     private String content;
     private List<String> tags;
-    private List<String> mediaCode;
+    private List<String> mediaUrl;
 
 }

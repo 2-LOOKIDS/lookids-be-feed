@@ -25,7 +25,7 @@ public class Feed {
     private boolean state;
     private String petCode;
     private List<String> tags;
-    private List<String> mediaCode;
+    private List<String> mediaUrl;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -40,7 +40,7 @@ public class Feed {
         List<String> tags,
         boolean state,
         LocalDateTime createdAt,
-        List<String> mediaCode
+        List<String> mediaUrl
     ) {
         this.id = id;
         this.feedCode = feedCode;
@@ -50,6 +50,6 @@ public class Feed {
         this.tags = tags;
         this.state = state;
         this.createdAt = createdAt;
-        this.mediaCode = mediaCode;
+        this.mediaUrl = mediaUrl;
     }
 }
