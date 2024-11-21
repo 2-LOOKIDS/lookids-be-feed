@@ -1,7 +1,6 @@
 package Lookids.Feed.common.config;
 
 import Lookids.Feed.feed.dto.in.FeedKafkaDto;
-import Lookids.Feed.feed.dto.in.UserKafkaDto;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.kafka.support.serializer.JsonSerializer;
@@ -69,22 +68,4 @@ public class KafkaConfig {
         return new KafkaTemplate<>(createFeedNotification());
     }
 
-    @Bean
-    public Map<String, Object> userProducerConfigs() {
-        Map<String, Object> props = new HashMap<>();
-        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServer);
-        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
-        return props;
-    }
-
-    @Bean
-    public ProducerFactory<String, UserKafkaDto> createUserProfileNotification() {
-        return new DefaultKafkaProducerFactory<>(userProducerConfigs());
-    }
-
-    @Bean
-    public KafkaTemplate<String, UserKafkaDto> userKafkaTemplate() {
-        return new KafkaTemplate<>(createUserProfileNotification());
-    }
 }
