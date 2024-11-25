@@ -27,7 +27,6 @@ public class FeedServiceImpl implements FeedService {
     public void createFeed(FeedRequestDto feedRequestDto){
         Feed savefeed = feedRepository.save(feedRequestDto.toEntity());
         FeedKafkaDto feedKafkaDto = feedRequestDto.toDto(savefeed);
-        // CompletableFuture<SendResult<String, FeedKafkaDto>> future = feedkafkaTemplate.send("feed-create", feedKafkaDto);
         feedkafkaTemplate.send("feed-create", feedKafkaDto);
         log.info("Sent feed request DTO to Kafka: {}", feedKafkaDto);
     }

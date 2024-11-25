@@ -24,9 +24,9 @@ public class FeedRequestDto {
     private String uuid;
     private String petCode;
     private String content;
-    private List<String> tags;
+    private List<String> tagList;
     private boolean state;
-    private List<String> mediaUrl;
+    private List<String> mediaUrlList;
     private LocalDateTime createdAt;
 
 
@@ -36,8 +36,8 @@ public class FeedRequestDto {
             .uuid(uuid)
             .petCode(petCode)
             .content(content)
-            .tags(tags)
-            .mediaUrl(mediaUrl)
+            .tagList(tagList)
+            .mediaUrlList(mediaUrlList)
             .state(false)
             .createdAt(createdAt)
             .build();
@@ -48,8 +48,8 @@ public class FeedRequestDto {
             .uuid(uuid)
             .petCode(feedRequestVo.getPetCode())
             .content(feedRequestVo.getContent())
-            .tags(feedRequestVo.getTags())
-            .mediaUrl(feedRequestVo.getMediaUrl())
+            .tagList(feedRequestVo.getTagList())
+            .mediaUrlList(feedRequestVo.getMediaUrlList())
             .build();
     }
 
@@ -61,8 +61,8 @@ public class FeedRequestDto {
             .petCode(feed.getPetCode())
             .state(true)
             .content(feed.getContent())
-            .tags(feed.getTags())
-            .mediaUrl(feed.getMediaUrl())
+            .tagList(feed.getTagList())
+            .mediaUrlList(feed.getMediaUrlList())
             .createdAt(feed.getCreatedAt())
             .build();
     }
@@ -74,8 +74,8 @@ public class FeedRequestDto {
             .uuid(uuid)
             .petCode(petCode)
             .content(content)
-            .tags(tags)
-            .mediaUrl(mediaUrl)
+            .tagList(tagList)
+            .mediaUrlList(mediaUrlList)
             .state(state)
             .createdAt(createdAt)
             .build();
@@ -87,9 +87,9 @@ public class FeedRequestDto {
             .uuid(uuid)
             .petCode(petCode)
             .content(content)
-            .tags(tags)
+            .tagList(tagList)
             .state(state)
-            .mediaUrl(mediaUrl)
+            .mediaUrlList(mediaUrlList)
             .createdAt(savefeed.getCreatedAt())
             .build();
     }

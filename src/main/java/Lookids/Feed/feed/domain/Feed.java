@@ -24,8 +24,8 @@ public class Feed {
     private String content;
     private boolean state;
     private String petCode;
-    private List<String> tags;
-    private List<String> mediaUrl;
+    private List<String> tagList;
+    private List<String> mediaUrlList;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -37,19 +37,19 @@ public class Feed {
         String feedCode,
         String content,
         String petCode,
-        List<String> tags,
+        List<String> tagList,
         boolean state,
         LocalDateTime createdAt,
-        List<String> mediaUrl
+        List<String> mediaUrlList
     ) {
         this.id = id;
         this.feedCode = feedCode;
         this.uuid = uuid;
         this.content = content;
         this.petCode = petCode;
-        this.tags = tags;
+        this.tagList = tagList;
         this.state = state;
         this.createdAt = createdAt;
-        this.mediaUrl = mediaUrl;
+        this.mediaUrlList = mediaUrlList;
     }
 }
