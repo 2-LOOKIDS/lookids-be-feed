@@ -34,9 +34,7 @@ public class FeedServiceImpl implements FeedService {
         Feed feed = feedRepository.findByFeedCodeAndStateFalse(feedCode)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
         feedRepository.save(FeedRequestDto.toDelete(feed).toEntityForUpdate());
-        DeleteKafkaDto deleteKafkaDto = DeleteKafkaDto.builder()
-            .feedCode(feedCode)
-            .build();
+        DeleteKafkaDto deleteKafkaDto = DeleteKafkaDto.toDto(feedCode);
         deletekafkaTemplate.send("feed-delete", deleteKafkaDto);
     }
 }

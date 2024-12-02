@@ -15,4 +15,10 @@ public class DeleteKafkaDto {
 	public DeleteKafkaDto(String feedCode) {
 		this.feedCode = feedCode;
 	}
+
+	public static DeleteKafkaDto toDto(String feedCode) {
+		return DeleteKafkaDto.builder()
+			.feedCode(feedCode)
+			.build();
+	}
 }
