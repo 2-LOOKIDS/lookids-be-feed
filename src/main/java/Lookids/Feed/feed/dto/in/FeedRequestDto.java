@@ -1,22 +1,20 @@
 package Lookids.Feed.feed.dto.in;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.bson.types.ObjectId;
 
 import Lookids.Feed.feed.domain.Feed;
 import Lookids.Feed.feed.vo.in.FeedRequestVo;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
-@Builder
-@AllArgsConstructor
+@NoArgsConstructor
 public class FeedRequestDto {
 
     private ObjectId id;
@@ -28,6 +26,22 @@ public class FeedRequestDto {
     private boolean state;
     private List<String> mediaUrlList;
     private LocalDateTime createdAt;
+
+    @Builder
+    public FeedRequestDto(ObjectId id, String feedCode, String uuid, String petCode, String content, List<String> tagList,
+        boolean state, List<String> mediaUrlList, LocalDateTime createdAt) {
+        this.id = id;
+        this.feedCode = feedCode;
+        this.uuid = uuid;
+        this.petCode = petCode;
+        this.content = content;
+        this.tagList =  tagList.stream()
+            .map(String::toLowerCase)
+            .collect(Collectors.toList());
+        this.state = state;
+        this.mediaUrlList = mediaUrlList;
+        this. createdAt = createdAt;
+    }
 
 
     public Feed toEntity() {
