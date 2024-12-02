@@ -35,14 +35,11 @@ public class FeedRequestDto {
         this.uuid = uuid;
         this.petCode = petCode;
         this.content = content;
-        this.tagList =  tagList.stream()
-            .map(String::toLowerCase)
-            .collect(Collectors.toList());
+        this.tagList = tagList;
         this.state = state;
         this.mediaUrlList = mediaUrlList;
         this. createdAt = createdAt;
     }
-
 
     public Feed toEntity() {
         return Feed.builder()
@@ -50,7 +47,7 @@ public class FeedRequestDto {
             .uuid(uuid)
             .petCode(petCode)
             .content(content)
-            .tagList(tagList)
+            .tagList(tagList.stream().map(String::toLowerCase).collect(Collectors.toList()))
             .mediaUrlList(mediaUrlList)
             .state(false)
             .createdAt(createdAt)
@@ -101,7 +98,7 @@ public class FeedRequestDto {
             .uuid(uuid)
             .petCode(petCode)
             .content(content)
-            .tagList(tagList)
+            .tagList(tagList.stream().map(String::toLowerCase).collect(Collectors.toList()))
             .state(state)
             .mediaUrlList(mediaUrlList)
             .createdAt(savefeed.getCreatedAt())
