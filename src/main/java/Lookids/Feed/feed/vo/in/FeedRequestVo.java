@@ -9,7 +9,7 @@ import lombok.ToString;
 @ToString
 public class FeedRequestVo {
 
-    private String petCode;
+    private List<String> petCode;
     private String content;
     private List<String> tagList;
     private List<String> mediaUrlList;

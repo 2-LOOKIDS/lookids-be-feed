@@ -20,7 +20,7 @@ public class FeedRequestDto {
     private ObjectId id;
     private String feedCode;
     private String uuid;
-    private String petCode;
+    private List<String> petCode;
     private String content;
     private List<String> tagList;
     private boolean state;
@@ -28,7 +28,7 @@ public class FeedRequestDto {
     private LocalDateTime createdAt;
 
     @Builder
-    public FeedRequestDto(ObjectId id, String feedCode, String uuid, String petCode, String content, List<String> tagList,
+    public FeedRequestDto(ObjectId id, String feedCode, String uuid, List<String> petCode, String content, List<String> tagList,
         boolean state, List<String> mediaUrlList, LocalDateTime createdAt) {
         this.id = id;
         this.feedCode = feedCode;
