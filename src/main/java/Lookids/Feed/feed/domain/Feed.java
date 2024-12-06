@@ -23,7 +23,7 @@ public class Feed {
     private String uuid;
     private String content;
     private boolean state;
-    private String petCode;
+    private List<String> petCode;
     private List<String> tagList;
     private List<String> mediaUrlList;
 
@@ -36,7 +36,7 @@ public class Feed {
         String uuid,
         String feedCode,
         String content,
-        String petCode,
+        List<String> petCode,
         List<String> tagList,
         boolean state,
         LocalDateTime createdAt,
