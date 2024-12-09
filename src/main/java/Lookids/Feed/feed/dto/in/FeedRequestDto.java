@@ -49,7 +49,7 @@ public class FeedRequestDto {
             .content(content)
             .tagList(tagList.stream().map(String::toLowerCase).collect(Collectors.toList()))
             .mediaUrlList(mediaUrlList)
-            .state(false)
+            .state(true)
             .createdAt(createdAt)
             .build();
     }
@@ -70,7 +70,7 @@ public class FeedRequestDto {
             .uuid(feed.getUuid())
             .feedCode(feed.getFeedCode())
             .petCode(feed.getPetCode())
-            .state(true)
+            .state(false)
             .content(feed.getContent())
             .tagList(feed.getTagList())
             .mediaUrlList(feed.getMediaUrlList())
@@ -99,7 +99,7 @@ public class FeedRequestDto {
             .petCode(petCode)
             .content(content)
             .tagList(tagList.stream().map(String::toLowerCase).collect(Collectors.toList()))
-            .state(state)
+            .state(savefeed.isState())
             .mediaUrlList(mediaUrlList)
             .createdAt(savefeed.getCreatedAt())
             .build();
