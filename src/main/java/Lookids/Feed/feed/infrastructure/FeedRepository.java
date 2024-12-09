@@ -8,5 +8,5 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import Lookids.Feed.feed.domain.Feed;
 
 public interface FeedRepository extends MongoRepository<Feed, ObjectId> {
-	Optional<Feed> findByFeedCodeAndStateFalse(String feedCode);
+	Optional<Feed> findByFeedCodeAndStateTrue(String feedCode);
 }

@@ -31,7 +31,7 @@ public class FeedServiceImpl implements FeedService {
 
     @Override
     public void deleteFeed(String uuid, String feedCode) {
-        Feed feed = feedRepository.findByFeedCodeAndStateFalse(feedCode)
+        Feed feed = feedRepository.findByFeedCodeAndStateTrue(feedCode)
                 .orElseThrow(() -> new BaseException(BaseResponseStatus.NO_EXIST_FEED));
         feedRepository.save(FeedRequestDto.toDelete(feed).toEntityForUpdate());
         DeleteKafkaDto deleteKafkaDto = DeleteKafkaDto.toDto(feedCode);
